@@ -26,29 +26,12 @@ project (generate_geocoding_data)
 # Helper functions dealing with finding libraries and programs this library
 # depends on.
 include (gtest.cmake)
-include (FetchContent)
 
-# Downloading the abseil sources.
-FetchContent_Declare(
-    abseil-cpp
-    GIT_REPOSITORY  https://github.com/abseil/abseil-cpp.git
-    GIT_TAG         origin/master
-)
-
-# Building the abseil binaries
-FetchContent_GetProperties(abseil-cpp)
-if (NOT abseil-cpp_POPULATED)
-    FetchContent_Populate(abseil-cpp)
-endif ()
-
-if (NOT abseil-cpp_POPULATED)
-   message (FATAL_ERROR "Could not build abseil-cpp binaries.")
-endif ()
+find_package(absl REQUIRED)
 
 # Safeguarding against any potential link errors as mentioned in
 # https://github.com/abseil/abseil-cpp/issues/225
 set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
-add_subdirectory(${abseil-cpp_SOURCE_DIR} ${abseil-cpp_BINARY_DIR})
 
 find_or_build_gtest ()
 set (

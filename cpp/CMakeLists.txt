@@ -101,6 +101,8 @@ if (${USE_ALTERNATE_FORMATS} STREQUAL "ON")
 endif ()
 
 # Find all the required libraries and programs.
+find_package(absl REQUIRED)
+
 if (${USE_BOOST} STREQUAL "ON")
   add_definitions ("-DI18N_PHONENUMBERS_USE_BOOST")
   if (WIN32)
